@@ -16,8 +16,7 @@ Created by: Ashish Kurian
 IRrecv ir_receiver(2);
 decode_results results;
 
-int i, j, k, count = 0;
-int now = 0;
+int i, j, k, now = 0;
 
 int BCD[10][4] = { //Binary of 0-9
     {0, 0, 0, 0},
