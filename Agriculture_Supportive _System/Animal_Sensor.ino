@@ -3,7 +3,7 @@ Created by: Ashish Kurian
 
     if distance is less than 200 & PIR get activated 
     	=> WARNING message displays on LCD
-        => Alarming buzzer and lights ON
+        => Alarming buzzer and LEDs ON [Red/Blue]
 
     if maped value from gas sensor is above 60 
     	=> WARNING message displays on LCD
@@ -97,7 +97,7 @@ void loop()
     analogWrite(A5, 0);
 }
 
-long readDistance(int triggerPin, int echoPin)
+long readDistance(int triggerPin, int echoPin) //UltraSonic Distance Senser
 {
     pinMode(triggerPin, OUTPUT);
     digitalWrite(triggerPin, LOW);
@@ -110,7 +110,7 @@ long readDistance(int triggerPin, int echoPin)
     return pulseIn(echoPin, HIGH);
 }
 
-void SenserOn(int dist)
+void SenserOn(int dist) //Working of Animal/Stranger sensing
 {
     flag = 1;
     if (digitalRead(2) == HIGH)
@@ -145,13 +145,13 @@ void SenserOn(int dist)
     }
 }
 
-void Tone()
+void Tone() //To start buzzer and blinking RED LED 
 {
     tone(A2, 100, 250);
     tone(A2, 100, 250);
 }
 
-void SensorOff()
+void SensorOff() //Switching OFF all Sensors
 {
     flag = 1;
     set_lcd_first("The Sensors are ");
@@ -163,7 +163,7 @@ void SensorOff()
     delay(1000);
 }
 
-void fire(int gas)
+void fire(int gas) //Fire Sensor
 {
     Tone();
     if (gas <= 70)
