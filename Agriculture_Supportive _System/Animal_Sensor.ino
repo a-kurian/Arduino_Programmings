@@ -1,11 +1,11 @@
 /*
 Created by: Ashish Kurian
 
-    if distance is less than 200 & PIR get activated 
+    If distance is less than 200 & PIR get activated 
     	=> WARNING message displays on LCD
         => Alarming buzzer and LEDs ON [Red/Blue]
 
-    if maped value from gas sensor is above 60 
+    If maped value from gas sensor is above 60 
     	=> WARNING message displays on LCD
         => DC Motor starts 
            [Assuming working of water pumb to blow out fire]
@@ -21,7 +21,7 @@ LiquidCrystal lcd(12, 7, 11, 10, 9, 8);
 int i, flag = -1;
 String message = "";
 
-// for printing message in the top of the lcd.
+// For printing message in the top of the lcd.
 void set_lcd_first(String message)
 {
     lcd.clear();
@@ -29,7 +29,7 @@ void set_lcd_first(String message)
     lcd.print(message);
 }
 
-// for adding message in the bottom of the lcd.
+// For adding message in the bottom of the lcd.
 void set_lcd_second(String message)
 {
 
@@ -43,15 +43,19 @@ void setup()
 {
 
     for (i = 2; i <= 6; i++)
+    {
         pinMode(i, INPUT);
-
+    }
     for (i = 13; i < 20; i++)
     {
         if (i <= 15)
+        {
             pinMode(i, INPUT);
-
+        }
         else
+        {
             pinMode(i, OUTPUT);
+        }
     }
 
     lcd.begin(16, 2);
@@ -114,23 +118,37 @@ void SenserOn(int dist) //Working of Animal/Stranger sensing
 {
     flag = 1;
     if (digitalRead(2) == HIGH)
+    {
         message = " N";
+    }
     else if (digitalRead(3) == HIGH)
+    {
         message = "NE";
+    }
     else if (digitalRead(4) == HIGH)
+    {
         message = "SE";
+    }
     else if (digitalRead(5) == HIGH)
+    {
         message = " S";
+    }
     else if (digitalRead(6) == HIGH)
+    {
         message = "SW";
+    }
     else if (digitalRead(13) == HIGH)
+    {
         message = "NW";
+    }
     if (message != "")
     {
         set_lcd_first("WARNING...!!");
         set_lcd_second("Dectected from" + message);
         if (dist <= 130)
+        {
             Tone();
+        }
         else
         {
             digitalWrite(A3, HIGH);
@@ -157,7 +175,9 @@ void SensorOff() //Switching OFF all Sensors
     set_lcd_first("The Sensors are ");
     set_lcd_second("in OFF state ");
     for (i = 2; i < 7; i++)
+    {
         digitalWrite(i, LOW);
+    }
     digitalWrite(13, LOW);
     digitalWrite(A1, 0);
     delay(1000);
@@ -167,13 +187,21 @@ void fire(int gas) //Fire Sensor
 {
     Tone();
     if (gas <= 70)
+    {
         analogWrite(A5, 128);
+    }
     else if ((gas > 70) && (gas <= 80))
+    {
         analogWrite(A5, 256);
+    }
     else if ((gas > 80) && (gas <= 90))
+    {
         analogWrite(A5, 512);
+    }
     else
+    {
         analogWrite(A5, 1024);
+    }
    
     delay(500);
     flag = 1;
